@@ -1,11 +1,42 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>DSA</title>
 </head>
+
+<link rel="stylesheet" href="/styles.css">
 <body>
-    TEST
+    <div id="bubbleSort" class="container" style="margin-bottom: 25px;">
+        <h1>Bubble Sort</h1>
+        <p>Click the button to sort the array using Bubble Sort.</p>
+        <div class="toolbar">
+            <button class="sortButton" onclick="setupBubbleSort(true)">Sort</button>
+            <button class="sortButton" onclick="setupBubbleSort(false)">Reset</button>
+            <div>Bars:</div>
+            <input type="text" id="bubbleamt" onchange="setupBubbleSort(false)">
+        </div>
+        <div id="bubblebarholder" class="barholder">
+        </div>
+    </div>
+
+    <div id="selectionSort" class="container">
+        <h1>Selection Sort</h1>
+        <p>Click the button to sort the array using Selection Sort.</p>
+        <div class="toolbar">
+            <button class="sortButton" onclick="setupSelectionSort(true)">Sort</button>
+            <button class="sortButton" onclick="setupSelectionSort(false)">Reset</button>
+            <div>Bars:</div>
+            <input type="text" id="selectioneamt" onchange="setupSelectionSort(false)">
+        </div>
+        <div id="selectionbarholder" class="barholder">
+        </div>
+    </div>
 </body>
+
+<script src="/scripts/barsetup.js"></script>
+<script src="/scripts/bubblesort.js"></script>
+
 </html>
