@@ -12,15 +12,17 @@
     <h1 style="margin: 0px;">Learning DSA - Caleb Laroche</h1>
     <div>----------------------------------------------------------------------------------</div>
     <div class="algoHolder"></div>
-    <select id="sorttype" style="width: 150px">
+    <select id="sorttype" style="width: 150px" onchange="setup('original','sorted')">
         <option>Bubble Sort</option>
         <option>Selection Sort</option>
     </select>
+    <br />
     <button onclick="sort('original','sorted','sorttype')">Sort</button>
-    <button onclick="setup(8,'original','sorted')">Reset</button>
+    <button onclick="setup('original','sorted')">New</button>
+    <div>Amount: </div><input id="sortamt" style="width:40px;" value="10">
     <div>Original:</div><div class="arrayHolder" id="original"></div>
     <div>Sorted:</div><div class="arrayHolder" id="sorted"></div>
-    <div id="graph"><div class="bar"></div></div>
+    <div id="sortgraph"></div>
 </body>
 
 <script src="/scripts/script.js"></script>
