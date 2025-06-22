@@ -1,3 +1,5 @@
+const speed = 10;
+
 // class setup
 class bar {
     constructor(val, e, pos, width) {
@@ -71,8 +73,8 @@ async function sort(originalid, sortedid, sortt) {
                     arr[j + 1] = temp;
                     swapped = true;
 
-                    await sleep(10);
-                    draw(graph, arr);
+                    await sleep(speed);
+                    draw(graph, arr, [j, j + 1]);
                     showChanges(sorted, arr);
                 }
             }
@@ -82,6 +84,10 @@ async function sort(originalid, sortedid, sortt) {
             if (!swapped) {
                 break;
             }
+
+            await sleep(speed);
+            draw(graph, arr, null);
+            showChanges(sorted, arr);
         }
     } else if (sorttypevalue == 'Selection Sort') {
         let n = arr.length;
@@ -113,9 +119,9 @@ async function sort(originalid, sortedid, sortt) {
             for (let k = minIndex; k > i; k--) {
                 arr[k] = arr[k - 1]
 
-                await sleep(10);
+                await sleep(speed);
                 draw(graph, arr);
-                showChanges(sorted, arr);
+                showChanges(sorted, arr, [k, k - 1]);
             }
 
             // move the min value to the current index being 
@@ -123,9 +129,53 @@ async function sort(originalid, sortedid, sortt) {
             arr[i] = minValue;
         }
 
-        await sleep(10);
+        await sleep(speed);
         draw(graph, arr);
-        showChanges(sorted, arr);
+        showChanges(sorted, arr, null);
+    } else if (sorttypevalue == 'Insertion Sort') {
+        let n = arr.length;
+
+        // loop through all the indcies of the array
+        // .. this starts at 1 (not 0) because we look at the 
+        // index behind us in this sort algorithim
+        for (let i = 1; i < n; i++) {
+
+            // store which index was inserted into last
+            let insertIndex = i;
+
+            // store the value of the current index
+            let currentValue = arr[i];
+
+            // store the previous index, because we started
+            // at 1 and are looking behind us
+            let j = i - 1;
+
+            // while we aren't at the beginning of the array
+            // and the previous inded value is greater than the current
+            while (j >= 0 && arr[j] > currentValue) {
+
+                // set the value of the next index to the current index
+                arr[j + 1] = arr[j];
+
+                // update which index was inserted into
+                insertIndex = j;
+
+                // count down for the loop
+                j--;
+
+                await sleep(speed);
+                draw(graph, arr);
+                showChanges(sorted, arr, null);
+            }
+
+            // set the value that needs insertion to 
+            // the current value we stored at the start of the loop
+            arr[insertIndex] = currentValue;
+
+            await sleep(speed);
+            draw(graph, arr);
+            showChanges(sorted, arr, null);
+        }
     }
 
     // output
@@ -152,7 +202,7 @@ function sleep(ms) {
     return new Promise(resolve => setTimeout(resolve, ms));
 }
 
-function draw(graph, arr) {
+function draw(graph, arr, active) {
     // remove old bars
     let deletebars = document.querySelectorAll('.bar');
     for (let b = 0; b < deletebars.length; b++) {
@@ -170,7 +220,11 @@ function draw(graph, arr) {
         newBar.e.style.width = newBar.width + 'px';
         newBar.e.style.left = (newBar.width * newBar.pos) + 'px';
         newBar.e.classList.add('bar');
-        console.log(newBar.e);
+
+        if (active && active.includes(b)) {
+            newBar.e.classList.add('isActive');
+        }
+
         graph.appendChild(newBar.e);
     }
 }

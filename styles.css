@@ -8,5 +8,13 @@
 .bar{
     position: absolute;
     bottom: 0px;
-    background-color: red;;
+    background-color: blue;;
+}
+
+.isActive{
+    background-color: darkblue;
+}
+
+.isCompleted{
+    background-color: black;
 }
